@@ -9,12 +9,12 @@ function Todos(props) {
     const [completed, setCompleted] = useState(false);
     const [id, setId] = useState(0);
 
-    // useEffect(() => {
-    //     if (completed) {
-    //         setCompleted(false);
-    //     }
+    useEffect(() => {
+        if (completed) {
+            setCompleted(false);
+        }
 
-    // }, [completed])
+    }, [completed])
     
     //functions:
 
@@ -22,6 +22,7 @@ function Todos(props) {
         console.log(event.currentTarget.value);
         setTask(event.currentTarget.value);
     }
+
     const onButtonClicked = () => {
         // setCompleted(true);
         let todoObj = { task: task, completed: completed , id: id};
@@ -44,7 +45,7 @@ function Todos(props) {
         setList(list.filter(filteredListItem => filteredListItem.id !== id));
     }
     const completedClassName = (completed) => {
-        if (completed === 'true') {
+        if (completed === true) {
             return 'line-through';
         } else {
             return 'no-underline';
@@ -69,14 +70,26 @@ function Todos(props) {
         console.log('completed button was pressed', completed);
         let listCopy = list;
         listCopy.map((copyItem) => {
-            // if (copyItem.completed === 'true') {
-            //     // setCompleted(copyItem.completed = 'false');
+            // if (copyItem.completed === true) {
+            //     setCompleted(copyItem.completed = false);
+            //     console('completed changed to:', copyItem.completed);
             // } else {
-                if (copyItem.id === id) {
-                    console.log('item', id, 'needs to be completed');
+
+            if (copyItem.id === id) {
+                console.log('item', id, 'needs to be completed');
+                if (copyItem.completed === false) {
                     setCompleted(copyItem.completed = true);
+                } else {
+                    setCompleted(copyItem.completed = false);
+                    console.log('completed changed to:', copyItem.completed);
+                }
                     console.log(copyItem.id,completed,copyItem.completed);
                 }
+                // if (copyItem.id === id) {
+                //     console.log('item', id, 'needs to be completed');
+                //     setCompleted(copyItem.completed = true);
+                //     console.log(copyItem.id,completed,copyItem.completed);
+                // }
             // }
         })
 
