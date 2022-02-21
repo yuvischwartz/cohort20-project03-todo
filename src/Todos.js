@@ -77,11 +77,27 @@ function Todos(props) {
                         <button onClick={onButtonClicked} className={'border p-1 w-1/3 border border-blue-400 rounded text-blue-400'}>Add</button>
                 </div>
 
-                <TodoItem />
+                
                 <div className={'p-4'}>
                         {/* item.completed ? 'line-through' : 'no-underline' */}
                         
+                        
                         <ul>
+                        {list && list.map((item, idx) => {  
+                            return <TodoItem key={idx} item={item} completedClassName={completedClassName} onCompletedClick={onCompletedClick}
+                                handleDeleteButton={handleDeleteButton}/>
+                        })}
+                        </ul>
+                        
+                        <div>
+                            <p>Show:</p>
+                            <div className={'flex space-x-2'}>
+                                <button className={'rounded bg-blue-400 p-2'}>All</button>
+                                <button className={'rounded bg-blue-400 p-2'}>Activ</button>
+                                <button className={'rounded bg-blue-400 p-2'}>completed</button>
+                            </div>
+                        </div>
+                        {/* <ul>
                         {list && list.map((item, idx) => {  
                         return <li key={idx} className={completedClassName(item.completed)}>
                         <div className={'flex justify-between px-4 bg-gray-100 p-2 border-b'}>
@@ -97,7 +113,7 @@ function Todos(props) {
                             </div>
                         </li>
                         })}
-                        </ul>
+                        </ul> */}
 
 
                         {/* <div className={'flex justify-between px-4 bg-gray-100 p-2 border-b'}>

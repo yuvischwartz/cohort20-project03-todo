@@ -5,7 +5,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import About from "./About";
 import Contact from "./Contact";
 import Todos from "./Todos";
-import TodoItem from "./TodoItem";
+
 
 function App() {
   return (
