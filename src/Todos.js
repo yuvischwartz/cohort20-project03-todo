@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TodoItem from "./TodoItem";
 import Show from "./Show";
+import TodoForm from "./TodoForm";
 
 
 function Todos(props) {
@@ -39,6 +40,7 @@ function Todos(props) {
         console.log(todoObj);
         setId(id + 1);
         setList([...list, todoObj]);
+        setTask('');
         console.log(list);
         console.log(id);
         console.log(completed);
@@ -102,12 +104,8 @@ function Todos(props) {
         <div className={'flex justify-center mt-24'}>
             <div className={'border w-1/2'}>
 
-                <div className={'flex gap-3 justify-center p-4'}>
-                        <input type="text" value={task} onChange={onInputChange} className={'border w-2/3 px-1 outline-none rounded'} placeholder={'Task..'}/>
-                        <button onClick={onButtonClicked} className={'border p-1 w-1/3 border border-blue-400 rounded text-blue-400'}>Add</button>
-                </div>
-
-                
+                <TodoForm task={task}onButtonClicked={onButtonClicked} onInputChange={onInputChange}/>
+            
                 <div className={'p-4'}>
                         <ul>
                         {list && list.map((item, idx) => {  
