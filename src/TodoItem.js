@@ -13,7 +13,8 @@ function TodoItem(props) {
                             <div>
                                 <button onClick={() => props.handleDeleteButton(props.item.id)}><i className="fa-solid fa-trash text-sm text-red-500"></i></button>
                             </div>
-                            </div>
+                </div>
+                
             </li>
         </>
     );

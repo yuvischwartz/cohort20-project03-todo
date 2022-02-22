@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoItem from "./TodoItem";
+import Show from "./Show";
 
 
 function Todos(props) {
@@ -8,6 +9,7 @@ function Todos(props) {
     const [task, setTask] = useState('');
     const [completed, setCompleted] = useState(false);
     const [id, setId] = useState(0);
+    const [toggle, setToggle] = useState(false);
 
     // [{task: 'Go to grocery',completed: false},{task: 'Go to grocery',completed: true}]
 
@@ -17,7 +19,14 @@ function Todos(props) {
         }
 
     }, [completed])
-    
+    useEffect(() => {
+        if (toggle) {
+            setList(list);
+            console.log('was here', list);
+            setToggle(false)
+        }
+
+    }, [toggle])
     //functions:
 
     const onInputChange = (event) => {
@@ -35,7 +44,7 @@ function Todos(props) {
         console.log(completed);
         // setList([...list,])
     }
-    
+  
     const handleDeleteButton = (id) => {
         console.log('id:',id);
         setList(list.filter(filteredListItem => filteredListItem.id !== id));
@@ -65,10 +74,31 @@ function Todos(props) {
         })
 
     }
+    const showActiveButton = () => {
+        // setList(list);
+        let activeList = list;
+        setList(activeList.filter(filteredListItem => filteredListItem.completed === false));
+        setToggle(true);
+        // setList(list);
+    }
+    const showCompletedButton = () => {
+        // setList(list);
+        let completedList = list;
+        setList(completedList.filter(filteredListItem => filteredListItem.completed === true));
+        setToggle(true);
+        // setList(list);
+    }
+    // const allButtonClicked = () => {
+    //     let listCopy = list;
+    //     setList(listCopy);
+    // }
     
+    // setList(list.filter(filteredListItem => filteredListItem.id !== id));
+
+    
+
     return (
-        <>
-            
+        <> 
         <div className={'flex justify-center mt-24'}>
             <div className={'border w-1/2'}>
 
@@ -79,25 +109,24 @@ function Todos(props) {
 
                 
                 <div className={'p-4'}>
-                        {/* item.completed ? 'line-through' : 'no-underline' */}
-                        
-                        
                         <ul>
                         {list && list.map((item, idx) => {  
                             return <TodoItem key={idx} item={item} completedClassName={completedClassName} onCompletedClick={onCompletedClick}
                                 handleDeleteButton={handleDeleteButton}/>
                         })}
                         </ul>
-                        
-                        <div>
-                            <p>Show:</p>
-                            <div className={'flex space-x-2'}>
-                                <button className={'rounded bg-blue-400 p-2'}>All</button>
-                                <button className={'rounded bg-blue-400 p-2'}>Activ</button>
-                                <button className={'rounded bg-blue-400 p-2'}>completed</button>
-                            </div>
-                        </div>
-                        {/* <ul>
+                        <Show showActiveButton={showActiveButton} showCompletedButton={showCompletedButton}/>
+                </div>
+            </div>
+        </div>
+        </>
+    );
+}
+
+export default Todos;
+
+
+{/* <ul>
                         {list && list.map((item, idx) => {  
                         return <li key={idx} className={completedClassName(item.completed)}>
                         <div className={'flex justify-between px-4 bg-gray-100 p-2 border-b'}>
@@ -126,20 +155,3 @@ function Todos(props) {
                             </div>
 
                         </div> */}
-
-
-                </div>
-
-
-
-
-            </div>
-
-
-        </div>
-
-        </>
-    );
-}
-
-export default Todos;
