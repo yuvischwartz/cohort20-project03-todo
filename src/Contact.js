@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import ContactPageForm from './ContactPageForm';
 
 function Contact(props) {
 
@@ -23,18 +23,14 @@ function Contact(props) {
                     </div>
                 </div>
                 <div className={'col-span-12 sm:col-span-8'}>
+                    
                     <h1 className={'logo text-3xl text-left mt-20 ml-8'}>Get in touch</h1>
                     
-                    <form>
-                     <span className="formtext">form</span>
-    	             <input 
-                        type="text" 
-                        placeholder="Enter Company Name" 
-                        required 
-                            />
-                            <button>Go!</button>
-                            </form>
-                </div>      
+                    <div className={'flex ml-auto gap-3 m-5'}>
+                        <ContactPageForm />
+                    </div>
+
+                </div>
         </div>
             
         </>

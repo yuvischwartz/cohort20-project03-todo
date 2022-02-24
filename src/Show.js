@@ -5,8 +5,9 @@ function Show(props) {
     return (
         <>
             <div>
-                            <p className={'font'}>Show:</p>
-                            <div className={'flex space-x-2'}>
+                            
+                <div className={'flex space-x-2 m-5'}>
+                <p className={'font text-md'}>Show:</p>
                             <Button buttonText={'All'} someFunc={props.showActiveButton} />
                             <Button buttonText={'Active'} someFunc={props.showCompletedButton} />
                             <Button buttonText={'Completed'}/>

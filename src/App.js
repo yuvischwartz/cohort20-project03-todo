@@ -22,7 +22,7 @@ function App() {
                   <li className={'text-black sm:p-2 sm:pl-5 hover:text-black hover:font-medium '}>
                   <Link to="/About">About</Link>
                 </li>
-                <li className={'text-black sm:p-2 hover:text-black hover:font-medium sm:block'}>
+                <li className={'text-white sm:p-2 hover:text-white hover:font-medium sm:block bg-sky-400 rounded'}>
                   <Link to="/Todos">To-do's</Link>
                 </li>
                 <li className={'text-black sm:p-2 hover:text-black hover:font-medium sm:block'}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TodoItem from "./TodoItem";
 import Show from "./Show";
 import TodoForm from "./TodoForm";
+import ExampleListItem from "./ExampleListItem";
 
 
 function Todos(props) {
@@ -11,9 +12,14 @@ function Todos(props) {
     const [completed, setCompleted] = useState(false);
     const [id, setId] = useState(0);
     const [toggle, setToggle] = useState(false);
+    const [exampleListToggle, setExampleListToggle] = useState(0);
+    
 
     // [{task: 'Go to grocery',completed: false},{task: 'Go to grocery',completed: true}]
+    useEffect(() => {
+        seedTasks();
 
+    }, [])
     useEffect(() => {
         if (completed) {
             setCompleted(false);
@@ -97,25 +103,41 @@ function Todos(props) {
     
     // setList(list.filter(filteredListItem => filteredListItem.id !== id));
 
-    
+    const seedTasks = () => {
+        
+        if ((list.length < 1)) {
+            // setExampleListToggle(1);
+            return <>
+                <h1 className={'font text-lg text-left font-semibold mb-3'}>Example List:</h1>
+                <ExampleListItem exampleText={'Example to-do number 1'} />
+                <ExampleListItem exampleText={'Example to-do number 2'} />
+                <ExampleListItem exampleText={'Example to-do number 3'} />
+                <ExampleListItem exampleText={'Example to-do number 4'} />
+                <ExampleListItem exampleText={'Example to-do number 5'}/ >
+            </>
+        }
+    }
 
     return (
         <> 
-        <div className={'flex justify-center mt-24'}>
-            <div className={'border w-1/2'}>
-
-                <TodoForm task={task}onButtonClicked={onButtonClicked} onInputChange={onInputChange}/>
+        <div className={'flex justify-center mt-14'}>
+                  
+                <div className={'w-1/2 h-fit'}>
+                
+                    <TodoForm task={task}onButtonClicked={onButtonClicked} onInputChange={onInputChange}/>
             
-                <div className={'p-4'}>
+                    <div className={'p-4'}>
                         <ul>
-                        {list && list.map((item, idx) => {  
-                            return <TodoItem key={idx} item={item} completedClassName={completedClassName} onCompletedClick={onCompletedClick}
-                                handleDeleteButton={handleDeleteButton}/>
-                        })}
-                        </ul>
-                        <Show showActiveButton={showActiveButton} showCompletedButton={showCompletedButton}/>
+                            {seedTasks()}
+                            {list && list.map((item, idx) => {  
+                                return <TodoItem key={idx} item={item} completedClassName={completedClassName} onCompletedClick={onCompletedClick}
+                                    handleDeleteButton={handleDeleteButton}/>
+                            })}
+                            </ul>
+                            <Show showActiveButton={showActiveButton} showCompletedButton={showCompletedButton}/>
+                    </div>
                 </div>
-            </div>
+            
         </div>
         </>
     );
