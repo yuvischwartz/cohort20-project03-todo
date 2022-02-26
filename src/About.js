@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Button from './Button';
+import { Routes, Route, Link } from "react-router-dom";
 
 function About(props) {
     return (
@@ -20,7 +21,9 @@ function About(props) {
                    
                 </div>
                 <div>
-                    <Button buttonText={'Get Started'}/>
+                        {/* <Button buttonText={'Get Started'} /> */}
+                        <button className={'py-3 px-4 rounded bg-rose-400 text-white hover:bg-rose-500 font hover:text-2xl text-xl'}>
+                        <Link to="/Todos">Get Started!</Link></button>
                 </div>   
                 </div>    
         </div>

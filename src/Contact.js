@@ -7,7 +7,7 @@ function Contact(props) {
         <>
             
         <div className={'grid grid-cols-12 gap-4 h-screen'}>
-                <div className={'col-span-12 sm:col-span-4 bg-sky-400 '}>
+                <div className={'col-span-12 sm:col-span-5 bg-rose-400 '}>
                     <h1 className={'logo text-3xl text-white mt-20 mb-6'}>Let's get in touch</h1>
                     <p className={'text-white text-md'}>We're open for any suggestion or just to have a chat!</p>
 
@@ -22,7 +22,7 @@ function Contact(props) {
                             <div><h2>Email:</h2><p className={'text-md'}>info@taskmanager.com</p></div>
                     </div>
                 </div>
-                <div className={'col-span-12 sm:col-span-8'}>
+                <div className={'col-span-12 sm:col-span-7'}>
                     
                     <h1 className={'logo text-3xl text-left mt-20 ml-8'}>Get in touch</h1>
                     

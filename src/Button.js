@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 function Button(props) {
 
@@ -14,7 +15,7 @@ function Button(props) {
     return (
         <>
             
-                <button onClick={props.someFunc} className={renderColor()}>{props.buttonText}</button>
+            <button onClick={props.someFunc} className={renderColor()}>{props.buttonText}</button>
             
         </>
     );

@@ -4,7 +4,6 @@ import Show from "./Show";
 import TodoForm from "./TodoForm";
 import ExampleListItem from "./ExampleListItem";
 
-
 function Todos(props) {
     
     const [list, setList] = useState([]);
@@ -12,20 +11,14 @@ function Todos(props) {
     const [completed, setCompleted] = useState(false);
     const [id, setId] = useState(0);
     const [toggle, setToggle] = useState(false);
-    const [exampleListToggle, setExampleListToggle] = useState(0);
-    
-
+   
+    //My List:
     // [{task: 'Go to grocery',completed: false},{task: 'Go to grocery',completed: true}]
+
     useEffect(() => {
         seedTasks();
-
     }, [])
-    useEffect(() => {
-        if (completed) {
-            setCompleted(false);
-        }
 
-    }, [completed])
     useEffect(() => {
         if (toggle) {
             setList(list);
@@ -34,7 +27,7 @@ function Todos(props) {
         }
 
     }, [toggle])
-    //functions:
+    
 
     const onInputChange = (event) => {
         console.log(event.currentTarget.value);
@@ -42,7 +35,7 @@ function Todos(props) {
     }
 
     const onButtonClicked = () => {
-        let todoObj = { task: task, completed: completed , id: id};
+        let todoObj = { task: task, completed: completed, id: id };
         console.log(todoObj);
         setId(id + 1);
         setList([...list, todoObj]);
@@ -50,51 +43,52 @@ function Todos(props) {
         console.log(list);
         console.log(id);
         console.log(completed);
-        // setList([...list,])
     }
   
     const handleDeleteButton = (id) => {
-        console.log('id:',id);
+        console.log('id:', id);
         setList(list.filter(filteredListItem => filteredListItem.id !== id));
     }
+
+    
     const completedClassName = (completed) => {
-        if (completed === true) {
-            return 'line-through';
-        } else if(completed === false){
-            return 'no-underline';
+        if (completed == true) {
+            return 'line-through'
+        } else {
+            return 'no-underline'
         }
     }
-
-    const onCompletedClick = (completed,id) => {
-        console.log('completed button was pressed', completed);
+  
+    const onCompletedClick = (completed, id) => {
+        console.log('completed button was pressed. the current value of completed is:', completed);
         let listCopy = list;
-        listCopy.map((copyItem) => {
+        setList(listCopy.map((copyItem) => {
             if (copyItem.id === id) {
-                console.log('item', id, 'needs to be completed');
-                if (copyItem.completed === false) {
-                    setCompleted(copyItem.completed = true);
-                } else {
-                    setCompleted(copyItem.completed = false);
-                    console.log('changed to:', copyItem.completed);
-                }
-                    console.log(copyItem.id,completed,copyItem.completed);
-                }
-        })
+                console.log('item number', id, 'needs to be completed');
+                return {
+                    ...copyItem,
+                    completed: !copyItem.completed,
+                    
+                };
+            }
+            console.log('completed value is now changed to:', copyItem.completed);
+            console.log('the list is now', list);
+            return copyItem;
+        }))
 
     }
+ 
     const showActiveButton = () => {
-        // setList(list);
         let activeList = list;
         setList(activeList.filter(filteredListItem => filteredListItem.completed === false));
+        // console.log('hellooooow was here');
         setToggle(true);
-        // setList(list);
     }
     const showCompletedButton = () => {
-        // setList(list);
+        console.log('hey..');
         let completedList = list;
         setList(completedList.filter(filteredListItem => filteredListItem.completed === true));
         setToggle(true);
-        // setList(list);
     }
     // const allButtonClicked = () => {
     //     let listCopy = list;
@@ -113,7 +107,7 @@ function Todos(props) {
                 <ExampleListItem exampleText={'Example to-do number 2'} />
                 <ExampleListItem exampleText={'Example to-do number 3'} />
                 <ExampleListItem exampleText={'Example to-do number 4'} />
-                <ExampleListItem exampleText={'Example to-do number 5'}/ >
+                <ExampleListItem exampleText={'Example to-do number 5'} />
             </>
         }
     }
@@ -124,16 +118,19 @@ function Todos(props) {
                   
                 <div className={'w-1/2 h-fit'}>
                 
-                    <TodoForm task={task}onButtonClicked={onButtonClicked} onInputChange={onInputChange}/>
+                    <TodoForm task={task} onButtonClicked={onButtonClicked}  onInputChange={onInputChange}/>
             
                     <div className={'p-4'}>
                         <ul>
                             {seedTasks()}
+    
                             {list && list.map((item, idx) => {  
+                                
                                 return <TodoItem key={idx} item={item} completedClassName={completedClassName} onCompletedClick={onCompletedClick}
                                     handleDeleteButton={handleDeleteButton}/>
                             })}
-                            </ul>
+
+                        </ul>
                             <Show showActiveButton={showActiveButton} showCompletedButton={showCompletedButton}/>
                     </div>
                 </div>
@@ -145,33 +142,57 @@ function Todos(props) {
 
 export default Todos;
 
+// const onCompletedClick = (completed, id) => {
+    //     console.log('completed button was pressed. the current value of completed is:', completed);
+    //     let listCopy = list;
+    //     listCopy.map((copyItem) => {
+    //         if (copyItem.id === id) {
+    //             console.log('item number', id, 'needs to be completed');
+    //             if (copyItem.completed === false) {
+    //                 setCompleted(copyItem.completed = true);
+    //                 console.log('i was here (is false');
+    //             } else {
+    //                 console.log('i was here (else)');
+    //                 setCompleted(copyItem.completed = false);
+    //                 console.log('changed to:', copyItem.completed);
+    //             }
+    //                 console.log(copyItem.id,completed,'changed to:',copyItem.completed);
+    //             }
+    //     })
 
-{/* <ul>
-                        {list && list.map((item, idx) => {  
-                        return <li key={idx} className={completedClassName(item.completed)}>
-                        <div className={'flex justify-between px-4 bg-gray-100 p-2 border-b'}>
-                            <div>
-                                    <input onClick={()=>onCompletedClick(item.completed,item.id)}type="checkbox"/>
-                                    <span className={'ml-2 text-sm font-semibold'}>{item.task}</span>
-                                    
-                            </div>
-                            <div>
-                                <button onClick={() => handleDeleteButton(item.id)}><i className="fa-solid fa-trash text-sm text-red-500"></i></button>
-                            </div>
-
-                            </div>
-                        </li>
-                        })}
-                        </ul> */}
+    // }
 
 
-                        {/* <div className={'flex justify-between px-4 bg-gray-100 p-2 border-b'}>
-                            <div>
-                                <input type="checkbox"/>
-                                <span className={'ml-2 text-sm font-semibold'}>Go to the Grocery</span>
-                            </div>
-                            <div>
-                                <i className="fa-solid fa-trash text-sm text-red-500"></i>
-                            </div>
+    // const onCompletedClick = () => {
+    //     let copyList = list;
+    //     setList(copyList.map(function (copyListitem) {
+    //         if (item.id === todo.id) {
+    //           return {
+    //             ...item,
+    //             completed: !item.completed,
+    //           };
+    //         }
+    //         return item;
+    //       })
+    //     );)
+    // }
+        // useEffect(() => {
+    //     if (completedClassName == 'no-underline') {
+    //         setCompletedClassValue('line-through');
+    //     } else {
+    //         setCompletedClassValue('no-underline');
+    //     }
+    // }, [toggleCheckBoxButton])
+    
+    
+    //functions:
+        // useEffect(() => {
+    //     if (completed) {
+    //         setCompleted(false);
+    //     }
 
-                        </div> */}
+    // }, [completed])
+
+     // const [toggleCheckBoxButton, setToggleCheckBoxButton] = useState(false);
+    // const [completedClassValue, setCompletedClassValue] = useState('no-underline');
+    // const [exampleListToggle, setExampleListToggle] = useState(0);
